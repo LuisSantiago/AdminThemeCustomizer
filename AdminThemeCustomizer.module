@@ -51,14 +51,14 @@ public static function getModuleConfigInputfields(array $data) {
 
         $field = wire('modules')->get('InputfieldText');
         $field->name = 'breadcrumbsbackground';
-        $field->label = "3.- Breadcrubms Background-color ";
+        $field->label = "3.- Breadcrumbs Background-color ";
         $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
         if(isset($data['breadcrumbsbackground'])) $field->value = $data['breadcrumbsbackground'];
         $inputfields->add($field); 
 
         $field = wire('modules')->get('InputfieldText');
         $field->name = 'breadcrumbscolor';
-        $field->label = "4.- Breadcrubms font color";
+        $field->label = "4.- Breadcrumbs font color";
         $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
         if(isset($data['breadcrumbscolor'])) $field->value = $data['breadcrumbscolor'];
         $inputfields->add($field); 

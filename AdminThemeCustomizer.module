@@ -71,16 +71,6 @@ public static function getModuleConfigInputfields(array $data) {
         if(isset($data['colorset1'])) $field->value = $data['colorset1'];
         $inputfields->add($field); 
 
-
-        $field = wire('modules')->get('InputfieldText');
-        $field->name = 'colorset2';
-        $field->label = "6.- Color set 2";
-        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
-        if(isset($data['colorset2'])) $field->value = $data['colorset2'];
-        $inputfields->add($field); 
-
-
-
         $field = wire('modules')->get('InputfieldText');
         $field->name = 'colorset2';
         $field->label = "6.- Color set 2";

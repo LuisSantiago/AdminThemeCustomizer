@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * Admin theme customizer
+ * @author  Luis Santiago "blad"
+ * 
+ * ProcessWire 2.x 
+ * Copyright (C) 2010 by Ryan Cramer 
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ *
+ */
+
+class AdminThemeCustomizer extends WireData implements Module, ConfigurableModule {
+
+    public static function getModuleInfo() {
+        return array(
+            'title' => 'Admin theme customizer',
+            'version' => 1, 
+            'summary' => "This module show options to customize your admin default theme",
+            'href' => 'https://github.com/LuisSantiago/AlternativeGridImages',
+            'author' => 'Blad',
+            'autoload' => true
+            );
+    }
+
+    public function init() {
+            $this->addHookAfter('Page::render', $this, 'CustomizerAdmin');
+        }
+        
+
+public static function getModuleConfigInputfields(array $data) {
+        $inputfields = new InputfieldWrapper(); 
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'headerbackground';
+        $field->label = "1.- Header Background-color";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['headerbackground'])) $field->value = $data['headerbackground'];
+        $inputfields->add($field); 
+
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'logourl';
+        $field->label = "2.- Site logo image url";
+        $field->notes = __('Example: www.mysite.com/logo.jpg - Default if you leave the field blank.'); 
+        if(isset($data['logourl'])) $field->value = $data['logourl'];
+        $inputfields->add($field); 
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'breadcrumbsbackground';
+        $field->label = "3.- Breadcrubms Background-color ";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['breadcrumbsbackground'])) $field->value = $data['breadcrumbsbackground'];
+        $inputfields->add($field); 
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'breadcrumbscolor';
+        $field->label = "4.- Breadcrubms font color";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['breadcrumbscolor'])) $field->value = $data['breadcrumbscolor'];
+        $inputfields->add($field); 
+
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'colorset1';
+        $field->label = "5.- Color set 1";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['colorset1'])) $field->value = $data['colorset1'];
+        $inputfields->add($field); 
+
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'colorset2';
+        $field->label = "6.- Color set 2";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['colorset2'])) $field->value = $data['colorset2'];
+        $inputfields->add($field); 
+
+
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'colorset2';
+        $field->label = "6.- Color set 2";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['colorset2'])) $field->value = $data['colorset2'];
+        $inputfields->add($field); 
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'content';
+        $field->label = "7.- Content background-color";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['content'])) $field->value = $data['content'];
+        $inputfields->add($field); 
+
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'footer';
+        $field->label = "8.- Footer (body) background-color";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['footer'])) $field->value = $data['footer'];
+        $inputfields->add($field); 
+
+        $field = wire('modules')->get('InputfieldText');
+        $field->name = 'container';
+        $field->label = "9.- Container background-color";
+        $field->notes = __('Examples: #000000, #000, blue, red - Default if you leave the field blank.'); 
+        if(isset($data['container'])) $field->value = $data['container'];
+        $inputfields->add($field); 
+
+
+        return $inputfields; 
+    
+
+    }
+
+public function CustomizerAdmin(HookEvent $event) {
+
+        $page = $event->object; 
+
+        // don't add this to the admin pages
+        if($page->template != 'admin') return;
+
+
+         $estilos = '<style type="text/css">';
+
+            $estilos .=  '#masthead{background-color:' . $this->headerbackground .';}';
+            $estilos .=  '#breadcrumbs{background-color:' . $this->breadcrumbsbackground .';}';
+            $estilos .=  '#breadcrumbs ul li a{color:' . $this->breadcrumbscolor .';}';
+            $estilos .=  '.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default, #content .WireTabs a:hover,.content li.action a:hover, .content .actions a:hover, .content .PageList .actions a:hover, .content .PageListMoveNote a:hover {background-color: '. $this->colorset1 .';}';
+            $estilos .=  '.ui-button:hover, button.ui-button.ui-state-hover, .ui-button.ui-state-hover, button.ui-button.ui-state-active, .ui-button.ui-state-active,.ui-menu, .content li.action a, .content .actions a, .content .PageList .actions a, .content .PageListMoveNote a {background-color: '. $this->colorset2 .';}';
+            $estilos .=  '#content {background-color:'. $this->content .';}';
+            $estilos .=  'body {background-color:'. $this->footer .';}';
+            $estilos .=  '.container {background-color:'. $this->container .';}';
+
+        $estilos .= '</style>';
+        $estilos .= '<script type="text/javascript">
+                        $(document).ready(function(){
+                        $( "img" ).attr({
+                          src: "' . $this->logourl .'",
+                          title: "Processwire.com",
+                          alt: "Processwire.com",
+                          height: "23px",
+                          width: "auto"
+                        });';
+           $estilos .= '});';
+        $estilos .= '</script>';
+
+                $event->return = str_replace("</head>", $estilos."</head>", $event->return);
+
+        }
+
+}

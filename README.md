@@ -1,5 +1,5 @@
 # AdminThemeCustomizer module for Processwire
-@author  Luis Santiago "blad"
+@author Luis Santiago "blad"
 
 ProcessWire 2.x 
 
@@ -10,7 +10,7 @@ AdminThemeCustomizer
 
 #### Installation
 
-This module's files should be placed in /site/modules/AlternativeGridImages/
+This module's files should be placed in /site/modules/AdminThemeCustomizer/
 
 #### Support forum
 
